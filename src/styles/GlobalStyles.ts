@@ -4,6 +4,7 @@ export default createGlobalStyle`
 
     :root {
         --orange: #ff9000;
+        --red: #c53030;
         --white: #f4ede8;
         --gray: #999591;
         --gray-hard: #666360;

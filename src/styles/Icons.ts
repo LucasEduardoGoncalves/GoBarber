@@ -1,4 +1,4 @@
-import { FiLogIn, FiMail, FiLock, FiUser, FiArrowLeft } from 'react-icons/fi';
+import { FiLogIn, FiMail, FiLock, FiUser, FiArrowLeft, FiAlertCircle } from 'react-icons/fi';
 
 export {
     FiLogIn as Login,
@@ -6,4 +6,5 @@ export {
     FiLock as Lock,
     FiUser as User,
     FiArrowLeft as ArrowLeft,
+    FiAlertCircle as AlertCircle
 }

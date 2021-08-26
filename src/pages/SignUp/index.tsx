@@ -22,6 +22,8 @@ export const SignUp: React.FC = () => {
   const handleSubmit = useCallback(async(data: object) => {
 
     try {
+      formRef.current?.setErrors({});
+
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome obrigatorio'),
         email: Yup.string().required('Email obrigatorio').email('Digite um email valido'),
@@ -34,12 +36,12 @@ export const SignUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false
       });
+
+      console.log(data);
     } catch (err) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
-
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
     }
-
   }, [])
 
   return (
