@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import { getValidationErrors } from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
+
+import * as Yup from 'yup';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -13,9 +17,30 @@ import * as Styles from './styles';
 
 export const SignUp: React.FC = () => {
 
-  function handleSubmit(data: object) {
-    console.log(data);
-  }
+  const formRef = useRef<FormHandles>(null);
+
+  const handleSubmit = useCallback(async(data: object) => {
+
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatorio'),
+        email: Yup.string().required('Email obrigatorio').email('Digite um email valido'),
+        password: Yup.string().min(6, 'Minino de 6 caracteres')
+      })
+      formRef.current?.setErrors({
+        name: 'o nome é gay'
+      })
+
+      await schema.validate(data, {
+        abortEarly: false
+      });
+    } catch (err) {
+      const errors = getValidationErrors(err);
+      formRef.current?.setErrors(errors);
+
+    }
+
+  }, [])
 
   return (
     <Styles.Container>
@@ -24,7 +49,7 @@ export const SignUp: React.FC = () => {
         <Styles.Content>
             <img src={logoImg} alt="GoBarber" />
 
-            <Form onSubmit={handleSubmit}>
+            <Form ref={formRef} onSubmit={handleSubmit}>
                 <h1>Faça seu Cadastro</h1>
 
                 <Input 
