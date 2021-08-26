@@ -25,7 +25,7 @@ export const SignIn: React.FC = () => {
 
       const schema = Yup.object().shape({
         email: Yup.string().required('Email obrigatorio').email('Digite um email valido'),
-        password: Yup.string().min(6, 'Minino de 6 caracteres')
+        password: Yup.string().required('Senha obrigatoria')
       })
       formRef.current?.setErrors({
         name: 'o nome é gay'
